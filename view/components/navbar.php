@@ -8,7 +8,7 @@
                 </li>
             </ul>
             <?php if ($auth->check()) { ?>
-                <a href="" class="text-dark m-2"><?php echo $auth->users()->firstName() ?></a>
+                <a href="/profile" class="text-dark m-2"><?php echo $auth->users()->firstName() ?></a>
                 <form class="d-flex" action="/logout" method="post">
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>

@@ -22,21 +22,38 @@ class Database
     }
 
 
-    
-    public function first (string $table, array $conditions = []){
+
+    public function first(string $table, array $conditions = [])
+    {
         $where = '';
-        
-        if (count($conditions) > 0){
+
+        if (count($conditions) > 0) {
             $where = 'WHERE ' . implode(', ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
         }
 
         $sql = "SELECT * FROM $table $where LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
-        
+
         $stmt->execute($conditions);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $result ?: null;
+    }
+
+    public function update(string $table, array $conditions = [], array $data)
+    {
+        
+        $fields = array_keys($data);
+        $binds = implode(', ', array_map(fn ($field) => "$field = :$field", $fields));
+        $where = '';
+        if (count($conditions) > 0) {
+            $where = 'WHERE ' . implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
+        }
+        
+        $sql = "UPDATE $table SET $binds $where";
+        $merge = array_merge($data, $conditions);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($merge);
     }
 
 
@@ -116,7 +133,7 @@ class Database
     }
 
 
-    
+
 
     private function connect()
     {
