@@ -5,11 +5,11 @@ namespace App\Middlewares;
 
 use App\Kernel\Middlewares\AbstractMiddlewares;
 
-class AuthMiddlewares extends AbstractMiddlewares{
+class GuestMiddlewares extends AbstractMiddlewares{
     public function handle()
     {
         if(!$this->auth->check()){
-            $this->redirect->to('/');
+            $this->redirect->to('/login');
         }
     }
 }

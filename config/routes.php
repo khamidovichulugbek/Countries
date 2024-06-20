@@ -5,6 +5,7 @@ use App\Controllers\RegisterController;
 use App\Controllers\AuthController;
 use App\Kernel\Router\Route;
 use App\Middlewares\AuthMiddlewares;
+use App\Middlewares\GuestMiddlewares;
 
 return [
     Route::get('/', [HomeController::class, 'index']),
