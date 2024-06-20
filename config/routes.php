@@ -13,6 +13,6 @@ return [
     Route::get('/login', [AuthController::class, 'index'],[AuthMiddlewares::class]),
     Route::post('/login', [AuthController::class, 'login']),
     Route::post('/logout', [AuthController::class, 'logout']),
-    Route::get('/profile', [AuthController::class, 'profile']),
+    Route::get('/profile', [AuthController::class, 'profile'], [GuestMiddlewares::class]),
     Route::post('/profile', [AuthController::class, 'update_profile']),
 ];
